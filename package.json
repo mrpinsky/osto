@@ -1,0 +1,25 @@
+{
+  "name": "osto",
+  "version": "0.1.0",
+  "description": "A transformer that pulls in ottypes/rich-text Deltas and emits rich-text 'bones' for rendering by systems with AoT compilers",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "mocha  --require ts-node/register test/*.spec.ts"
+  },
+  "keywords": [
+    "rich-text",
+    "quilljs"
+  ],
+  "author": "Nate Pinsky",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.0.1",
+    "@types/mocha": "^2.2.41",
+    "@types/node": "^8.0.2",
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2",
+    "tslint": "^5.4.3",
+    "tslint-eslint-rules": "^4.1.1",
+    "typescript": "^2.3.4"
+  }
+}
