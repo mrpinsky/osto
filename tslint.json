@@ -1,9 +1,9 @@
 {
   "rules": {
     "no-duplicate-variable": true,
-    "no-unused-variable": [
-      true
-    ],
+    "no-unused-variable": {
+      "severity": "warning"
+    },
     "no-switch-case-fall-through": true
   },
   "rulesDirectory": [

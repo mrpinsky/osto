@@ -1,27 +1,29 @@
 import { DeltaStatic } from 'quill';
 
-export interface TextBone {
-  type: 'text';
-  text: string;
-  attributes: { [attribute: string]: any };
+export interface AttributedBone {
+  attributes?: { [attribute: string]: any };
 }
 
-export interface HashtagBone {
+export interface TextBone extends AttributedBone {
+  type: 'text';
+  text: string;
+}
+
+export interface HashtagBone extends AttributedBone {
   type: 'hashtag';
   tag: string;
 }
 
-export interface AtMentionBone {
+export interface AtMentionBone extends AttributedBone {
   type: 'at';
   id: number;
 }
 
 export type InlineBone = TextBone | HashtagBone | AtMentionBone;
 
-export interface ParagraphBone {
+export interface ParagraphBone extends AttributedBone {
   type: 'p';
   bones: InlineBone[];
-  attributes: { [attribute: string]: any };
 }
 
 export interface TrellisImageBone {
@@ -29,17 +31,20 @@ export interface TrellisImageBone {
   id: number;
 }
 
-export interface ListBone {
+export interface ListBone extends AttributedBone {
   type: 'list';
-  items: InlineBone[];
+  items: InlineBone[][];
   ordered: boolean;
-  attributes: { [attribute: string]: any };
 }
 
 export type BlockBone = ParagraphBone | ListBone | TrellisImageBone;
 
 export type Skeleton = BlockBone[];
 
-export function ossify(delta: DeltaStatic): Skeleton {
+export function ossify(delta: { insert: any }): InlineBone {
+  return { type: 'text', text: 'foo' };
+}
+
+export function skeletonize(delta: DeltaStatic): Skeleton {
   return [];
 }
