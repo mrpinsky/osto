@@ -12,10 +12,15 @@
   ],
   "author": "Nate Pinsky",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrpinsky/osto.git"
+  },
   "devDependencies": {
     "@types/chai": "^4.0.1",
     "@types/mocha": "^2.2.41",
     "@types/node": "^8.0.2",
+    "@types/quill": "0.0.30",
     "chai": "^4.0.2",
     "mocha": "^3.4.2",
     "ts-node": "^3.1.0",
@@ -23,7 +28,8 @@
     "tslint-eslint-rules": "^4.1.1",
     "typescript": "^2.3.4"
   },
-  "dependencies": {
+  "peerDependencies": {
     "quill": "^1.2.6"
-  }
+  },
+  "dependencies": {}
 }
