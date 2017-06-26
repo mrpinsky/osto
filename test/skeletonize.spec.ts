@@ -72,7 +72,7 @@ describe('skeletonize', () => {
         {
           type: 'p',
           contents: [
-            { type: 'text', text: 'text', attributes: {} },
+            { type: 'text', text: 'text ', attributes: {} },
             { type: 'hashtag', tag: 'hashtag', attributes: {} },
             { type: 'text', text: ' ', attributes: {} },
             { type: 'at', id: 1, attributes: {} },
@@ -105,7 +105,7 @@ describe('skeletonize', () => {
               [{ type: 'text', text: 'foo', attributes: {} }],
               [{ type: 'text', text: 'bar', attributes: {} }],
             ],
-            ordered: true,
+            list: 'ordered',
           },
         ];
 
@@ -133,7 +133,7 @@ describe('skeletonize', () => {
               [{ type: 'text', text: 'foo', attributes: {} }],
               [{ type: 'text', text: 'bar', attributes: {} }],
             ],
-            ordered: false,
+            list: 'bullet',
           },
         ];
 
@@ -158,12 +158,12 @@ describe('skeletonize', () => {
           {
             type: 'list',
             items: [[{ type: 'text', text: 'foo', attributes: {} }]],
-            ordered: true,
+            list: 'ordered',
           },
           {
             type: 'list',
             items: [[{ type: 'text', text: 'bar', attributes: {} }]],
-            ordered: false,
+            list: 'bullet',
           },
         ];
 
@@ -193,7 +193,30 @@ describe('skeletonize', () => {
               { type: 'at', id: 1, attributes: {} },
             ],
           ],
-          ordered: false,
+          list: 'bullet',
+        },
+      ];
+
+      expect(skeletonize(delta)).to.deep.equal(skeleton);
+    });
+
+    it('should handle a paragraph followed by a list', () => {
+      const delta: QuillDelta = {
+        ops: [
+          { insert: 'paragraph\nlist item' },
+          { insert: '\n', attributes: { list: 'bullet' } },
+        ],
+      };
+
+      const skeleton: Skeleton = [
+        {
+          type: 'p',
+          contents: [{ type: 'text', text: 'paragraph', attributes: {} }],
+        },
+        {
+          type: 'list',
+          items: [[{ type: 'text', text: 'list item', attributes: {} }]],
+          list: 'bullet',
         },
       ];
 
@@ -260,7 +283,7 @@ describe('integration', () => {
           [{ type: 'hashtag', tag: 'hashtag', attributes: {} }],
           [{ type: 'at', id: 1, attributes: {} }],
         ],
-        ordered: true,
+        list: 'ordered',
       },
       {
         type: 'image',
@@ -273,7 +296,7 @@ describe('integration', () => {
           [{ type: 'hashtag', tag: 'hashtag', attributes: {} }],
           [{ type: 'text', text: 'foo', attributes: {} }],
         ],
-        ordered: false,
+        list: 'bullet',
       },
     ];
 

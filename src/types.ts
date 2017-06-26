@@ -54,7 +54,7 @@ export interface TrellisImageBone {
 export interface ListBone {
   type: 'list';
   items: InlineBone[][];
-  ordered: boolean;
+  list: 'ordered' | 'bullet';
 }
 
 export type BlockBone = ParagraphBone | ListBone | TrellisImageBone;
