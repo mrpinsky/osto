@@ -1,3 +1,3 @@
 export * from './types';
-export * from './ossify';
-export * from './skeletonize';
+export { ossify } from './ossify';
+export { skeletonize } from './skeletonize';

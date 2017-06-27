@@ -84,6 +84,7 @@ export function skeletonize(delta: QuillDelta): Skeleton {
     } else {
       // a special insert type
       // Ossify and add to current buffer
+      // const html = toHtmlString(op as { insert: string });
       buffer.push(ossify(op));
     }
   }
