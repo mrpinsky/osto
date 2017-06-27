@@ -3,7 +3,6 @@ import { ossify } from './ossify';
 
 export function isolateNewlines(ops: QuillOp[]): QuillOp[] {
   return ops.reduce((acc: QuillOp[], curr: QuillOp) => {
-    debugger;
     if (typeof curr.insert === 'string' && curr.insert !== '\n') {
       const preMatch = curr.insert.match(/[^\n]/);
       const postMatch = curr.insert.match(/[^\n]\n*$/);
@@ -39,7 +38,7 @@ export function skeletonize(delta: QuillDelta): Skeleton {
   const linedOps = isolateNewlines(delta.ops);
   const skeleton: Skeleton = [];
   let buffer: InlineBone[] = [];
-
+  debugger;
   for (const op of linedOps) {
     if (typeof op.insert === 'string') {
       if (op.insert === '\n') {

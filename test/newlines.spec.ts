@@ -28,7 +28,10 @@ describe('isolateNewlines', () => {
   });
 
   it('should leave special inlines alone', () => {
-    const ops = [{ insert: { hashtag: 'hashtag' } }];
+    const ops = [
+      { insert: { hashtag: 'hashtag' }, attributes: { bold: true } },
+      { insert: { atmention: { id: 1 } }, attributes: { italic: true } },
+    ];
 
     const transformed = ops.map(op => Object.assign({ attributes: {} }, op));
 

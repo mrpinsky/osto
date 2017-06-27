@@ -235,71 +235,71 @@ describe('skeletonize', () => {
       expect(skeletonize(delta)).to.deep.equal(skeleton);
     });
   });
-});
 
-describe('integration', () => {
-  it('should handle deltas with all types of elements', () => {
-    const delta: QuillDelta = {
-      ops: [
-        { insert: 'text ', attributes: { italic: true } },
-        { insert: { hashtag: 'hashtag' }, attributes: { bold: true } },
-        { insert: { atmention: { id: 1 }, attributes: { underlined: true } } },
-        { insert: '\n' },
-        { insert: 'foo', attributes: { strikethrough: true } },
-        { insert: '\n', attributes: { list: 'ordered' } },
-        { insert: { hashtag: 'hashtag' } },
-        { insert: '\n', attributes: { list: 'ordered' } },
-        { insert: { atmention: { id: 1 } } },
-        { insert: '\n', attributes: { list: 'ordered' } },
-        { insert: { image: 1 } },
-        { insert: '\nfoo', attributes: { strikethrough: true } },
-        { insert: '\n', attributes: { list: 'bullet' } },
-        { insert: { hashtag: 'hashtag' } },
-        { insert: '\n', attributes: { list: 'bullet' } },
-        { insert: { atmention: { id: 1 } } },
-        { insert: '\n', attributes: { list: 'bullet' } },
-      ],
-    };
-
-    const skeleton: Skeleton = [
-      {
-        type: 'p',
-        contents: [
-          { type: 'text', text: 'text ', attributes: { italic: true } },
-          { type: 'hashtag', tag: 'hashtag', attributes: { bold: true } },
-          { type: 'at', id: 1, attributes: { underlined: true } },
+  describe('integration', () => {
+    it('should handle deltas with all types of elements', () => {
+      const delta: QuillDelta = {
+        ops: [
+          { insert: 'text ', attributes: { italic: true } },
+          { insert: { hashtag: 'hashtag' }, attributes: { bold: true } },
+          { insert: { atmention: { id: 1 } }, attributes: { underline: true } },
+          { insert: '\n' },
+          { insert: { hashtag: 'hashtag' } },
+          { insert: '\n', attributes: { list: 'ordered' } },
+          { insert: 'foo', attributes: { strikethrough: true } },
+          { insert: '\n', attributes: { list: 'ordered' } },
+          { insert: { atmention: { id: 1 } } },
+          { insert: '\n', attributes: { list: 'ordered' } },
+          { insert: { image: 1 } },
+          { insert: '\nfoo', attributes: {} },
+          { insert: '\n', attributes: { list: 'bullet' } },
+          { insert: { hashtag: 'hashtag' } },
+          { insert: '\n', attributes: { list: 'bullet' } },
+          { insert: { atmention: { id: 1 } } },
+          { insert: '\n', attributes: { list: 'bullet' } },
         ],
-      },
-      {
-        type: 'list',
-        items: [
-          [
-            {
-              type: 'text',
-              text: 'foo',
-              attributes: { strikethrough: true },
-            },
+      };
+
+      const skeleton: Skeleton = [
+        {
+          type: 'p',
+          contents: [
+            { type: 'text', text: 'text ', attributes: { italic: true } },
+            { type: 'hashtag', tag: 'hashtag', attributes: { bold: true } },
+            { type: 'at', id: 1, attributes: { underline: true } },
           ],
-          [{ type: 'hashtag', tag: 'hashtag', attributes: {} }],
-          [{ type: 'at', id: 1, attributes: {} }],
-        ],
-        list: 'ordered',
-      },
-      {
-        type: 'image',
-        ref: 1,
-      },
-      {
-        type: 'list',
-        items: [
-          [{ type: 'at', id: 1, attributes: {} }],
-          [{ type: 'hashtag', tag: 'hashtag', attributes: {} }],
-          [{ type: 'text', text: 'foo', attributes: {} }],
-        ],
-        list: 'bullet',
-      },
-    ];
+        },
+        {
+          type: 'list',
+          items: [
+            [{ type: 'hashtag', tag: 'hashtag', attributes: {} }],
+            [
+              {
+                type: 'text',
+                text: 'foo',
+                attributes: { strikethrough: true },
+              },
+            ],
+            [{ type: 'at', id: 1, attributes: {} }],
+          ],
+          list: 'ordered',
+        },
+        {
+          type: 'image',
+          ref: 1,
+        },
+        {
+          type: 'list',
+          items: [
+            [{ type: 'text', text: 'foo', attributes: {} }],
+            [{ type: 'hashtag', tag: 'hashtag', attributes: {} }],
+            [{ type: 'at', id: 1, attributes: {} }],
+          ],
+          list: 'bullet',
+        },
+      ];
 
-    expect(skeletonize(delta)).to.deep.equal(skeleton);
+      expect(skeletonize(delta)).to.deep.equal(skeleton);
+    });
   });
 });
