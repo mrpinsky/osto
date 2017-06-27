@@ -301,5 +301,20 @@ describe('skeletonize', () => {
 
       expect(skeletonize(delta)).to.deep.equal(skeleton);
     });
+
+    it('should dump buffer into p if no trailing newline', () => {
+      const ops: QuillDelta = {
+        ops: [{ insert: 'foo' }],
+      };
+
+      const transformed: Skeleton = [
+        {
+          type: 'p',
+          contents: [{ type: 'text', text: 'foo', attributes: {} }],
+        },
+      ];
+
+      expect(skeletonize(ops)).to.deep.equal(transformed);
+    });
   });
 });

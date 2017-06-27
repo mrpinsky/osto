@@ -38,7 +38,7 @@ export function skeletonize(delta: QuillDelta): Skeleton {
   const linedOps = isolateNewlines(delta.ops);
   const skeleton: Skeleton = [];
   let buffer: InlineBone[] = [];
-  debugger;
+
   for (const op of linedOps) {
     if (typeof op.insert === 'string') {
       if (op.insert === '\n') {
@@ -86,6 +86,10 @@ export function skeletonize(delta: QuillDelta): Skeleton {
       // Ossify and add to current buffer
       buffer.push(ossify(op));
     }
+  }
+
+  if (buffer.length > 0) {
+    skeleton.push({ type: 'p', contents: buffer });
   }
 
   return skeleton;
