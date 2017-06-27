@@ -241,7 +241,7 @@ describe('integration', () => {
   it('should handle deltas with all types of elements', () => {
     const delta: QuillDelta = {
       ops: [
-        { insert: 'text', attributes: { italic: true } },
+        { insert: 'text ', attributes: { italic: true } },
         { insert: { hashtag: 'hashtag' }, attributes: { bold: true } },
         { insert: { atmention: { id: 1 }, attributes: { underlined: true } } },
         { insert: '\n' },

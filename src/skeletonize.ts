@@ -47,7 +47,11 @@ export function skeletonize(delta: QuillDelta): Skeleton {
           // Look at last item on skeleton
           const last = skeleton[skeleton.length - 1];
           // If it's the same type of list, add buffer to it
-          if (last.type === 'list' && last.list === op.attributes.list) {
+          if (
+            last &&
+            last.type === 'list' &&
+            last.list === op.attributes.list
+          ) {
             last.items.push(buffer);
           } else {
             // Otherwise, start a new list with the buffer and push it onto skeleton
@@ -58,8 +62,14 @@ export function skeletonize(delta: QuillDelta): Skeleton {
             });
           }
         } else {
-          // Attach buffer to skeleton as p-block and reset buffer
-          skeleton.push({ type: 'p', contents: buffer });
+          if (
+            // the preceding block, if it exists, isn't an image
+            skeleton.length === 0 ||
+            skeleton[skeleton.length - 1].type !== 'image'
+          ) {
+            // Attach it to skeleton as p-block
+            skeleton.push({ type: 'p', contents: buffer });
+          }
         }
         // Either way, reset the buffer
         buffer = [];
