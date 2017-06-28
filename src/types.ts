@@ -51,11 +51,21 @@ export interface TrellisImageBone {
   ref: any;
 }
 
-export interface ListBone {
+export interface ListBoneBase {
   type: 'list';
   items: InlineBone[][];
-  list: 'ordered' | 'bullet';
+  list: string;
 }
+
+export interface OrderedListBone extends ListBoneBase {
+  list: 'ordered';
+}
+
+export interface UnorderedListBone extends ListBoneBase {
+  list: 'bullet';
+}
+
+export type ListBone = OrderedListBone | UnorderedListBone;
 
 export type BlockBone = ParagraphBone | ListBone | TrellisImageBone;
 

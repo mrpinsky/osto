@@ -54,11 +54,19 @@ export function skeletonize(delta: QuillDelta): Skeleton {
             last.items.push(buffer);
           } else {
             // Otherwise, start a new list with the buffer and push it onto skeleton
-            skeleton.push({
-              type: 'list',
-              items: [buffer],
-              list: op.attributes.list,
-            });
+            if (op.attributes.list === 'ordered') {
+              skeleton.push({
+                type: 'list',
+                items: [buffer],
+                list: op.attributes.list,
+              });
+            } else if (op.attributes.list === 'bullet') {
+              skeleton.push({
+                type: 'list',
+                items: [buffer],
+                list: op.attributes.list,
+              });
+            }
           }
         } else {
           if (
