@@ -82,7 +82,9 @@ export function deboneInline(bone: InlineBone, format: Format): string {
       return deboneAtMention(bone, format);
     default:
       ((x: never) => {
-        throw new Error(`Invalid inline bone: ${bone}`);
+        throw new Error(
+          `Invalid inline bone: ${JSON.stringify(bone, null, 2)}`,
+        );
       })(bone);
   }
 }
@@ -130,7 +132,9 @@ export function debone(skeleton: Skeleton, format: Format): string {
           return deboneImage(bone, format);
         default:
           return ((x: never) => {
-            throw new Error(`Invalid block bone: ${bone}`);
+            throw new Error(
+              `Invalid block bone: ${JSON.stringify(bone, null, 2)}`,
+            );
           })(bone);
       }
     })
